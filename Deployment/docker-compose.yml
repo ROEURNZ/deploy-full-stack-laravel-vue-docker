@@ -1,0 +1,63 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ../
+      dockerfile: Deployment/Dockerfile.backend
+    image: laravel-backend
+    container_name: laravel-backend
+    restart: unless-stopped
+    tty: true
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'true'
+      APP_KEY: ${APP_KEY}
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: '3306'
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ../backend:/var/www
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../Deployment/Dockerfile.frontend
+    image: vue-frontend
+    container_name: vue-frontend
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.2
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Use this for the root user password
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge

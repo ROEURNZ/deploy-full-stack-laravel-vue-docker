@@ -1,0 +1,6 @@
+@import './base.css';
+
+body {
+  background: rgb(238, 237, 237);
+  height: 100%;
+}
