@@ -1,4 +1,4 @@
-# pnc_client_demo
+# app_client
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -17,29 +17,29 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ## Project Setup
 
 ```sh
-bun install
+npm install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-bun dev
+npm dev
 ```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-bun build
+npm build
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-bun test:unit
+npm test:unit
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-bun lint
+npm lint
 ```
